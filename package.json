@@ -11,8 +11,13 @@
     "deploy": "npm run build && npm run export"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.16",
+    "@emotion/styled": "^10.0.15",
     "next": "^9.0.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
+  },
+  "devDependencies": {
+    "babel-plugin-emotion": "^10.0.16"
   }
 }
