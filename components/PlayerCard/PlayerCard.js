@@ -8,11 +8,4 @@ const StyledCard = styled.div`
   margin: 5px;
 `;
 
-export const PlayerCard = ({
-  id,
-  firsName,
-  lastName,
-  rank,
-  teamAbbr,
-  position
-}) => <StyledCard />;
+export const PlayerCard = props => <StyledCard>{props.firstName}</StyledCard>;

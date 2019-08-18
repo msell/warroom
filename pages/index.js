@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import axios from "axios";
+import { PlayerList } from "components/PlayerList";
 
 const PlayerCard = styled.div`
   border-radius: 5px;
@@ -9,15 +9,11 @@ const PlayerCard = styled.div`
   margin: 5px;
 `;
 
-const url = `http://api.fantasy.nfl.com/v1/players/editordraftranks?format=json&count=100&offset=0`;
-
 const Home = ({ rankings }) => {
   return (
     <div>
       <div>Player Rankings</div>
-      {rankings.map(x => (
-        <PlayerCard key={x.id}>{x.lastName}</PlayerCard>
-      ))}
+      <PlayerList />
     </div>
   );
 };
