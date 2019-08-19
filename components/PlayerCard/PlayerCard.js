@@ -1,12 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { lighten } from "polished";
+
 const StyledCard = styled.div`
-  display: grid;
-  grid-gap: 2px;
-  grid-template-areas:
-    "logo name name name rank"
-    "logo team position details rank"
-    "logo team position details rank";
+  display: flex;
   justify-content: space-between;
   align-items: flex-start;
   border-radius: 5px;
@@ -19,24 +16,16 @@ const StyledCard = styled.div`
 `;
 
 const Logo = styled.img`
-  grid-area: logo;
   height: 100px;
   border-radius: 5%;
   box-shadow: 0 0 10px gray;
 `;
 
 const Name = styled.div`
-  grid-area: name;
   font-size: 26px;
 `;
 
-const Team = styled.div`
-  grid-area: team;
-  font-size: 18px;
-`;
-
-const Position = styled.div`
-  grid-area: position;
+const TeamPos = styled.div`
   font-size: 18px;
 `;
 
@@ -58,13 +47,24 @@ const Rank = styled.div`
   width: 46px;
 `;
 
+const Summary = styled.div`
+  display: flex;
+  margin-top: 20px;
+  width: 230px;
+  justify-content: space-between;
+  align-self: center;
+`;
+
 const Button = styled.button`
-  background-color: blue;
+  background-color: #836fff;
+  border: none;
   color: #fff;
   border-radius: 30px;
   padding: 5px;
   width: 90px;
-  grid-area: details;
+  &:hover {
+    background: ${lighten(0.1, "#836fff")};
+  }
 `;
 
 export const PlayerCard = props => {
@@ -75,12 +75,17 @@ export const PlayerCard = props => {
           props.teamAbbr === "LA" ? "LAR" : props.teamAbbr
         }_2.png`}
       />
-      <Name>
-        {props.firstName} {props.lastName}
-      </Name>
-      <Team>{props.teamAbbr}</Team>
-      <Position>{props.position}</Position>
-      <Button>Read More</Button>
+      <div>
+        <Name>
+          {props.firstName} {props.lastName}
+        </Name>
+        <Summary>
+          <TeamPos>
+            {props.teamAbbr} - {props.position}
+          </TeamPos>
+          <Button>Read More</Button>
+        </Summary>
+      </div>
       <Box>
         <Rank>Rank</Rank> {props.rank}
       </Box>
