@@ -5,9 +5,8 @@ import gql from "graphql-tag";
 import { ErrorMessage } from "components";
 
 export const PLAYER_DETAILS_QUERY = gql`
-  query {
-    playerDetails(id: "2555224") {
-      id
+  query details($id: String!) {
+    playerDetails(id: $id) {
       name
       status
       injuryGameStatus
@@ -39,7 +38,9 @@ export const PlayerDetails = props => {
   const { playerDetails } = data;
   return (
     <Container>
-      <div>TODO: fetch player details</div>
+      <div>{playerDetails.name}</div>
+      <h2>{playerDetails.notes[0].headline}</h2>
+      <p>{playerDetails.notes[0].body}</p>
     </Container>
   );
 };
