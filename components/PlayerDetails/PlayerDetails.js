@@ -24,7 +24,9 @@ export const PLAYER_DETAILS_QUERY = gql`
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
+  width: 400px;
   justify-content: space-evenly;
+  text-align: left;
 `;
 
 export const PlayerDetails = props => {

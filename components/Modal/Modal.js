@@ -4,6 +4,8 @@ import styled from "@emotion/styled";
 
 const Overlay = styled.div`
   position: fixed;
+  display: flex;
+  justify-content: center;
   top: 0;
   left: 0;
   width: 100%;
@@ -35,7 +37,6 @@ const Dialog = ({ children, onClose }) => {
     border-radius: 20px;
     text-align: center;
     top: 20%;
-    left: calc(50vw);
     z-index: 10000;
     background-color: #fff;
   `;
