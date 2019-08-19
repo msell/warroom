@@ -12,7 +12,8 @@ const PlayerCard = styled.div`
 const Home = ({ rankings }) => {
   return (
     <div>
-      <div>Player Rankings</div>
+      <h1 style={{ textAlign: "center" }}>Player Rankings</h1>
+      <hr />
       <PlayerList />
     </div>
   );

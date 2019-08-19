@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { NetworkStatus } from "apollo-boost";
 import gql from "graphql-tag";
 import { PlayerCard, ErrorMessage } from "components";
+import styled from "@emotion/styled";
 
 export const PLAYER_RANKING_QUERY = gql`
   query rankings {
@@ -15,6 +16,12 @@ export const PLAYER_RANKING_QUERY = gql`
       teamAbbr
     }
   }
+`;
+
+const StyledList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 `;
 
 export const PlayerList = props => {
@@ -34,5 +41,11 @@ export const PlayerList = props => {
   if (loading && !loadingMoreRankings) return <div>Loading...</div>;
 
   const { playerRankings } = data;
-  return playerRankings.map(x => <PlayerCard key={x.id} {...x} />);
+  return (
+    <StyledList>
+      {playerRankings.map(x => (
+        <PlayerCard key={x.id} {...x} />
+      ))}
+    </StyledList>
+  );
 };
