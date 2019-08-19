@@ -18,8 +18,10 @@ const Home = ({ rankings }) => {
   );
 };
 
-Home.getInitialProps = async () => {
-  const res = await axios.get(url);
-  return { rankings: res.data.players };
-};
+// if you want SSR
+// Home.getInitialProps = async () => {
+//   const res = await axios.get(url);
+//   return { rankings: res.data.players };
+// };
+
 export default Home;
