@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { lighten } from "polished";
+import { Modal, PlayerDetails } from "components";
 
 const StyledCard = styled.div`
   display: flex;
@@ -62,11 +63,16 @@ const Button = styled.button`
   padding: 5px;
   width: 90px;
   &:hover {
+    cursor: pointer;
     background: ${lighten(0.1, "#836fff")};
   }
 `;
 
 export const PlayerCard = props => {
+  const [showDetails, setShowDetails] = React.useState(false);
+
+  const toggleDetails = () => setShowDetails(!showDetails);
+
   return (
     <StyledCard teamAbbr={props.teamAbbr}>
       <Logo
@@ -82,12 +88,15 @@ export const PlayerCard = props => {
           <TeamPos>
             {props.teamAbbr} - {props.position}
           </TeamPos>
-          <Button>Read More</Button>
+          <Button onClick={toggleDetails}>Read More</Button>
         </Summary>
       </div>
       <Box>
         <Rank>Rank</Rank> {props.rank}
       </Box>
+      <Modal open={showDetails} onClose={toggleDetails}>
+        <PlayerDetails id={props.id} />
+      </Modal>
     </StyledCard>
   );
 };
