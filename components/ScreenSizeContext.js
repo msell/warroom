@@ -26,11 +26,7 @@ const screenSizeInfo = () => ({
 });
 
 export const ScreenSizeProvider = ({ children }) => {
-  const [dimensions, setDimensions] = React.useState({
-    height: 0,
-    width: 0,
-    deviceType: "mobile"
-  });
+  const [dimensions, setDimensions] = React.useState(screenSizeInfo());
   React.useEffect(() => {
     const handleResize = () => {
       setDimensions(screenSizeInfo());
