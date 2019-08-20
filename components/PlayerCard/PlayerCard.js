@@ -2,18 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { lighten } from "polished";
 import { Modal, PlayerDetails } from "components";
-
-const StyledCard = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  border-radius: 5px;
-  box-shadow: 0 0 10px gray;
-  padding: 13px 8px;
-  margin: 5px;
-  width: 450px;
-  height: 100px;
-`;
+import { size } from "config/breakpoints";
 
 const Logo = styled.img`
   height: 100px;
@@ -65,6 +54,23 @@ const Button = styled.button`
   &:hover {
     cursor: pointer;
     background: ${lighten(0.1, "#836fff")};
+  }
+`;
+
+const StyledCard = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-radius: 5px;
+  box-shadow: 0 0 10px gray;
+  padding: 13px 8px;
+  margin: 5px;
+  width: 450px;
+  height: 100px;
+  @media (max-width: ${size.tablet}) {
+    flex-direction: column;
+    width: 320px;
+    height: 320px;
   }
 `;
 
