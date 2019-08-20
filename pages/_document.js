@@ -1,5 +1,15 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import styled from "@emotion/styled";
 
+const Container = styled.div`
+  overflow-y: scroll;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+`;
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const initialProps = await Document.getInitialProps(ctx);
@@ -11,19 +21,10 @@ class MyDocument extends Document {
       <Html>
         <Head />
         <body>
-          <div
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%"
-            }}
-            id="page-wrapper"
-          >
+          <Container id="page-wrapper">
             <Main />
             <NextScript />
-          </div>
+          </Container>
         </body>
       </Html>
     );

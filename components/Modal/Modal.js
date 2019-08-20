@@ -21,7 +21,7 @@ const Dialog = ({ children, onClose }) => {
     // the page-wrapper instead of body for the scroll lock to work
     document.querySelector("#page-wrapper").style.overflowY = "hidden";
     return () => {
-      document.querySelector("#page-wrapper").style.overflowY = "auto";
+      document.querySelector("#page-wrapper").style.overflowY = "scroll";
     };
   }, []);
 
