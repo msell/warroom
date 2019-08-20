@@ -1,27 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { useQuery } from "@apollo/react-hooks";
-import gql from "graphql-tag";
-import { ErrorMessage } from "components";
 import get from "lodash.get";
-
-export const PLAYER_DETAILS_QUERY = gql`
-  query details($id: String!) {
-    playerDetails(id: $id) {
-      name
-      status
-      photo
-      injuryGameStatus
-      position
-      notes {
-        timestamp
-        headline
-        body
-        analysis
-      }
-    }
-  }
-`;
+import { ErrorMessage } from "components";
+import { PLAYER_DETAILS_QUERY } from "queries"
 
 const Container = styled.div`
   display: flex;

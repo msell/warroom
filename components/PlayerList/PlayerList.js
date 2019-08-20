@@ -1,22 +1,11 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { NetworkStatus } from "apollo-boost";
-import gql from "graphql-tag";
 import { PlayerCard, ErrorMessage } from "components";
+import { PLAYER_RANKING_QUERY } from "queries";
+
 import styled from "@emotion/styled";
 
-export const PLAYER_RANKING_QUERY = gql`
-  query rankings {
-    playerRankings(pageNumber: 1) {
-      id
-      rank
-      firstName
-      lastName
-      position
-      teamAbbr
-    }
-  }
-`;
 
 const StyledList = styled.div`
   display: flex;
