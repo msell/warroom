@@ -4,6 +4,7 @@ import React from "react";
 import { ApolloProvider } from "@apollo/react-hooks";
 import withApolloClient from "../lib/with-apollo-client";
 import { Global, css } from "@emotion/core";
+import { ScreenSizeProvider } from "components";
 
 class MyApp extends App {
   render() {
@@ -26,7 +27,9 @@ class MyApp extends App {
           `}
         />
 
-        <Component {...pageProps} />
+        <ScreenSizeProvider>
+          <Component {...pageProps} />
+        </ScreenSizeProvider>
       </ApolloProvider>
     );
   }
