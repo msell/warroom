@@ -42,6 +42,7 @@ const Dialog = ({ children, onClose }) => {
     top: 20%;
     z-index: 10000;
     background-color: #fff;
+    width: ${({ width }) => (width ? width : "300px")};
   `;
 
   return (
