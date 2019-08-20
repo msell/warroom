@@ -9,6 +9,7 @@ export const PLAYER_DETAILS_QUERY = gql`
     playerDetails(id: $id) {
       name
       status
+      photo
       injuryGameStatus
       position
       notes {
@@ -41,7 +42,8 @@ export const PlayerDetails = props => {
   const { playerDetails } = data;
   return (
     <Container>
-      <div>{playerDetails.name}</div>
+      <h1>{playerDetails.name}</h1>
+      <img src={playerDetails.photo} alt={`Photo of ${playerDetails.name}`} />
       <h2>{playerDetails.notes[0].headline}</h2>
       <p>{playerDetails.notes[0].body}</p>
     </Container>
