@@ -2,7 +2,7 @@
 
 - absolute imports are handled by setting the NODE_PATH env var
 - using the new apollo hooks api to fetch from graphQL server
-- graphQL service is serverless using Firebase Functions
+- backend is a serverless GraphQL API deployed to Firebase Functions (api in a different repo)
 - uses css grid template areas to simplify responsive designs
 - master branch automatically deploys to netlify
 
