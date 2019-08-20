@@ -25,7 +25,7 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   max-width: 400px;
-  min-width: 320px;
+  min-width: 300px;
   justify-content: space-evenly;
   text-align: left;
 `;

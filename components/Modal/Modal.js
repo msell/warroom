@@ -16,9 +16,12 @@ const Overlay = styled.div`
 
 const Dialog = ({ children, onClose }) => {
   React.useEffect(() => {
-    document.querySelector("body").style.overflowY = "hidden";
+    // I tried to select the body to prevent scrolling and that worked for desktop
+    // but there is something strange on mobile devices and we need to use a div like
+    // the page-wrapper instead of body for the scroll lock to work
+    document.querySelector("#page-wrapper").style.overflowY = "hidden";
     return () => {
-      document.querySelector("body").style.overflowY = "auto";
+      document.querySelector("#page-wrapper").style.overflowY = "auto";
     };
   }, []);
 
@@ -33,7 +36,7 @@ const Dialog = ({ children, onClose }) => {
     flex-direction: column;
     padding: 20px;
     position: absolute;
-    border: solid 2px black;
+    border: solid 3px black;
     border-radius: 20px;
     text-align: center;
     top: 20%;
