@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { ErrorMessage } from "components";
+import get from "lodash.get";
 
 export const PLAYER_DETAILS_QUERY = gql`
   query details($id: String!) {
@@ -40,12 +41,15 @@ export const PlayerDetails = props => {
   if (loading) return <div>Loading...</div>;
 
   const { playerDetails } = data;
+  const headline = get(playerDetails, "notes[0].headline", undefined);
+  const body = get(playerDetails, "notes[0].body", undefined);
+
   return (
     <Container>
       <h1>{playerDetails.name}</h1>
       <img src={playerDetails.photo} alt={`Photo of ${playerDetails.name}`} />
-      <h2>{playerDetails.notes[0].headline}</h2>
-      <p>{playerDetails.notes[0].body}</p>
+      {headline && <h2>{headline}</h2>}
+      {body && <p>{body}</p>}
     </Container>
   );
 };
