@@ -5,23 +5,36 @@ import { Modal, PlayerDetails } from "components";
 import { size } from "config/breakpoints";
 
 const Logo = styled.img`
+  grid-area: logo;
   height: 100px;
   border-radius: 5%;
   box-shadow: 0 0 10px gray;
+  @media (max-width: ${size.tablet}) {
+    justify-self: flex-end;
+  }
 `;
 
 const Name = styled.div`
+  grid-area: name;
   font-size: 26px;
+  @media (max-width: ${size.tablet}) {
+    justify-self: center;
+  }
 `;
 
 const TeamPos = styled.div`
+  grid-area: position;
   font-size: 18px;
+  @media (max-width: ${size.tablet}) {
+    justify-self: center;
+  }
 `;
 
 const Box = styled.div`
+  grid-area: rank;
   border: 2px solid black;
   border-radius: 5px;
-  height: 90px;
+  height: 98px;
   width: 90px;
   text-align: center;
   font-size: 2.5rem;
@@ -36,15 +49,8 @@ const Rank = styled.div`
   width: 46px;
 `;
 
-const Summary = styled.div`
-  display: flex;
-  margin-top: 20px;
-  width: 230px;
-  justify-content: space-between;
-  align-self: center;
-`;
-
 const Button = styled.button`
+  grid-area: action;
   background-color: #836fff;
   border: none;
   color: #fff;
@@ -55,10 +61,17 @@ const Button = styled.button`
     cursor: pointer;
     background: ${lighten(0.1, "#836fff")};
   }
+  @media (max-width: ${size.tablet}) {
+    width: 200px;
+    justify-self: center;
+  }
 `;
 
 const StyledCard = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-areas:
+    "logo name name name rank"
+    "logo position position action rank";
   justify-content: space-between;
   align-items: flex-start;
   border-radius: 5px;
@@ -68,9 +81,15 @@ const StyledCard = styled.div`
   width: 450px;
   height: 100px;
   @media (max-width: ${size.tablet}) {
-    flex-direction: column;
-    width: 320px;
-    height: 320px;
+    grid-template-areas:
+      "rank logo"
+      "name name"
+      "position position"
+      "action action";
+    justify-content: space-between;
+    align-items: stretch;
+    width: 250px;
+    height: 250px;
   }
 `;
 
@@ -86,17 +105,16 @@ export const PlayerCard = props => {
           props.teamAbbr === "LA" ? "LAR" : props.teamAbbr
         }_2.png`}
       />
-      <div>
-        <Name>
-          {props.firstName} {props.lastName}
-        </Name>
-        <Summary>
-          <TeamPos>
-            {props.teamAbbr} - {props.position}
-          </TeamPos>
-          <Button onClick={toggleDetails}>Read More</Button>
-        </Summary>
-      </div>
+
+      <Name>
+        {props.firstName} {props.lastName}
+      </Name>
+
+      <TeamPos>
+        {props.teamAbbr} - {props.position}
+      </TeamPos>
+      <Button onClick={toggleDetails}>Read More</Button>
+
       <Box>
         <Rank>Rank</Rank> {props.rank}
       </Box>
