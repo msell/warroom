@@ -14,7 +14,7 @@ const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-const Dialog = ({ children, onClose }) => {
+const Dialog = ({ children, onClose, ...props }) => {
   React.useEffect(() => {
     // I tried to select the body to prevent scrolling and that worked for desktop
     // but there is something strange on mobile devices and we need to use a div like
@@ -47,7 +47,7 @@ const Dialog = ({ children, onClose }) => {
 
   return (
     <Overlay onClick={onClose}>
-      <StyledDialog onClick={e => e.stopPropagation()}>
+      <StyledDialog width={props.width} onClick={e => e.stopPropagation()}>
         <CloseButton onClick={onClose}>&times;</CloseButton>
         {children}
       </StyledDialog>

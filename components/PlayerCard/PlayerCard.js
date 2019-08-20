@@ -118,7 +118,7 @@ export const PlayerCard = props => {
       <Box>
         <Rank>Rank</Rank> {props.rank}
       </Box>
-      <Modal open={showDetails} onClose={toggleDetails}>
+      <Modal open={showDetails} onClose={toggleDetails} width={"300px"}>
         <PlayerDetails id={props.id} />
       </Modal>
     </StyledCard>
