@@ -39,7 +39,7 @@ const Dialog = ({ children, onClose, ...props }) => {
     border: solid 3px black;
     border-radius: 20px;
     text-align: center;
-    top: 20%;
+    top: 20px;
     z-index: 10000;
     background-color: #fff;
     width: ${({ width }) => (width ? width : "300px")};
