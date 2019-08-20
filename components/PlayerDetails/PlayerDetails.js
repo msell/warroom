@@ -30,6 +30,8 @@ const Container = styled.div`
   min-width: 300px;
   justify-content: space-evenly;
   text-align: left;
+  max-height: 80vh;
+  overflow-y: scroll;
 `;
 
 export const PlayerDetails = props => {
