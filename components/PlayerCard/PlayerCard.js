@@ -87,7 +87,6 @@ const StyledCard = styled.div`
       "position position"
       "action action";
     justify-content: space-between;
-    align-items: stretch;
     width: 250px;
     height: 250px;
   }
