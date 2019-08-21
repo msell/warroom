@@ -100,11 +100,7 @@ export const PlayerCard = props => {
 
   return (
     <StyledCard teamAbbr={props.teamAbbr}>
-      <Logo
-        src={`https://static.nfl.com/static/content/public/static/img/fantasy/avatar/240x240/fan_avatars_${
-          props.teamAbbr === "LA" ? "LAR" : props.teamAbbr
-        }_2.png`}
-      />
+      <Logo src={props.logo} alt={`${props.teamAbbr} logo`} />
 
       <Name>
         {props.firstName} {props.lastName}

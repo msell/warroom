@@ -9,6 +9,7 @@ export const PLAYER_RANKING_QUERY = gql`
       lastName
       position
       teamAbbr
+      logo
     }
   }
 `;
