@@ -1,14 +1,3 @@
-import React from "react";
-import { PlayerList } from "components/PlayerList";
+import Games from "./games";
 
-const Home = () => {
-  return (
-    <div>
-      <h1 style={{ textAlign: "center" }}>Player Rankings</h1>
-      <hr />
-      <PlayerList />
-    </div>
-  );
-};
-
-export default Home;
+export default Games;
