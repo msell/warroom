@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/react-hooks";
 import { GAME_ODDS_QUERY } from "queries";
 import styled from "@emotion/styled";
 import { size } from "config/breakpoints";
-import get from "lodash.get";
 
 const Container = styled.div`
   display: flex;
@@ -69,18 +68,23 @@ const Games = () => {
       <hr />
       <Container>
         {data.scores.map(x => {
-          const odds = get(x, "odds.homeSpread", undefined);
+          //   const odds = get(x, "odds.homeSpread", undefined);
 
-          const spread = odds ? `${odds.homeSpread}` : "";
+          const spread = () => {
+            if (!x.odds) return ``;
+
+            if (x.odds?.homeSpread == 0) return ` (even)`;
+
+            const prefix = x.odds?.homeSpread > 0 ? `+` : ``;
+            return ` (${prefix}${x.odds?.homeSpread})`;
+          };
 
           return (
             <StyledCard key={x.gameSchedule.gameId}>
               <HomeLogo src={x.gameSchedule.homeTeamLogo} />
-              {`${x.gameSchedule.homeNickname} (${get(
-                x,
-                "odds.homeSpread",
-                null
-              )}) vs ${x.gameSchedule.visitorNickname}`}
+              {`${x.gameSchedule.homeNickname}${spread()} vs ${
+                x.gameSchedule.visitorNickname
+              }`}
               <VisitorLogo src={x.gameSchedule.visitorTeamLogo} />
             </StyledCard>
           );
