@@ -11,19 +11,19 @@ const Container = styled.div`
 `;
 
 const HomeLogo = styled.div`
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 110px;
   background-size: cover;
   border-radius: 5px;
-  background-image: url(${props => props.src});
+  background-image: url("/static/images/${props => props.team}-left.png");
 `;
 
 const VisitorLogo = styled.div`
-  width: 100px;
-  height: 100px;
+  width: 128px;
+  height: 110px;
   border-radius: 5px;
   background-size: cover;
-  background-image: url(${props => props.src});
+  background-image: url("/static/images/${props => props.team}-right.png");
 `;
 
 const StyledCard = styled.div`
@@ -68,8 +68,6 @@ const Games = () => {
       <hr />
       <Container>
         {data.scores.map(x => {
-          //   const odds = get(x, "odds.homeSpread", undefined);
-
           const spread = () => {
             if (!x.odds) return ``;
 
@@ -81,11 +79,17 @@ const Games = () => {
 
           return (
             <StyledCard key={x.gameSchedule.gameId}>
-              <HomeLogo src={x.gameSchedule.homeTeamLogo} />
+              <HomeLogo
+                team={x.gameSchedule.homeTeamAbbr}
+                src={x.gameSchedule.homeTeamLogo}
+              />
               {`${x.gameSchedule.homeNickname}${spread()} vs ${
                 x.gameSchedule.visitorNickname
               }`}
-              <VisitorLogo src={x.gameSchedule.visitorTeamLogo} />
+              <VisitorLogo
+                team={x.gameSchedule.visitorTeamAbbr}
+                src={x.gameSchedule.visitorTeamLogo}
+              />
             </StyledCard>
           );
         })}
