@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { GAME_ODDS_QUERY } from "queries";
 import styled from "@emotion/styled";
 import { size } from "config/breakpoints";
+import { Modal } from "components";
 
 const Container = styled.div`
   display: flex;
@@ -14,7 +15,7 @@ const Container = styled.div`
 
 const HomeLogo = styled.div`
   grid-area: homeHelmet;
-  width: 120px;
+  width: 128px;
   height: 110px;
   background-size: cover;
   border-radius: 5px;
@@ -71,6 +72,14 @@ const Total = styled.span`
 `;
 
 const Games = props => {
+  const [modalActive, setModalActive] = React.useState(false);
+  const [selectedGame, setSelectedGame] = React.useState(null);
+
+  const toggleModal = (game) => {
+    setSelectedGame(game);
+    setModalActive(!modalActive);
+  }
+
   const { loading, error, data, fetchMore, networkStatus } = useQuery(
     GAME_ODDS_QUERY,
     {
@@ -81,29 +90,34 @@ const Games = props => {
   if (error) return <ErrorMessage message="Error loading games." />;
   if (loading) return <div>Loading...</div>;
 
+  const spread = (x) => {
+    if (!x.odds) return ``;
+
+    if (x.odds?.homeSpread == 0) return ` (even)`;
+
+    const prefix = x.odds?.homeSpread > 0 ? `+` : ``;
+    return ` (${prefix}${x.odds?.homeSpread})`;
+  };
+
   return (
     <div>
       <h1 style={{ textAlign: "center" }}>Games</h1>
       <hr />
       <Container>
-        {data.scores.map(x => {
-          const spread = () => {
-            if (!x.odds) return ``;
-
-            if (x.odds?.homeSpread == 0) return ` (even)`;
-
-            const prefix = x.odds?.homeSpread > 0 ? `+` : ``;
-            return ` (${prefix}${x.odds?.homeSpread})`;
-          };
+        {data.scores.map(x => {          
 
           return (
-            <StyledCard tabIndex={0} key={x.gameSchedule.gameId}>
+            <StyledCard
+              onClick={() => toggleModal(x)}
+              tabIndex={0}
+              key={x.gameSchedule.gameId}
+            >
               <HomeLogo
                 team={x.gameSchedule.homeTeamAbbr}
                 src={x.gameSchedule.homeTeamLogo}
               />
 
-              <Line>{`${x.gameSchedule.homeNickname}${spread()} vs ${
+              <Line>{`${x.gameSchedule.homeNickname}${spread(x)} vs ${
                 x.gameSchedule.visitorNickname
               }`}</Line>
               {x.odds && <Total>Over/Under {x.odds?.total}</Total>}
@@ -116,6 +130,18 @@ const Games = props => {
           );
         })}
       </Container>
+      <Modal open={modalActive} onClose={toggleModal} width={"300px"}>
+        <div>{`${selectedGame?.gameSchedule?.visitorTeamAbbr} at ${selectedGame?.gameSchedule?.homeTeamAbbr}`}</div>
+        <div>{selectedGame?.gameSchedule?.gameDate}</div>
+        {selectedGame?.odds && <div>
+          <Line>{`${selectedGame?.gameSchedule?.homeNickname}${spread(selectedGame)} vs ${
+                selectedGame?.gameSchedule?.visitorNickname
+              }`}</Line>
+          <div><Total>Over/Under {selectedGame.odds?.total}</Total></div>
+          <div>{`${selectedGame?.gameSchedule?.homeTeamAbbr} money line: ${selectedGame.odds?.homeMoneyLine}`}</div>
+          <div>{`${selectedGame?.gameSchedule?.visitorTeamAbbr} money line: ${selectedGame.odds?.visitorMoneyLine}`}</div>
+          </div>}
+      </Modal>
     </div>
   );
 };
