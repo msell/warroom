@@ -8,9 +8,12 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  font-size: 20px;
+  text-align: center;
 `;
 
 const HomeLogo = styled.div`
+  grid-area: homeHelmet;
   width: 120px;
   height: 110px;
   background-size: cover;
@@ -19,36 +22,56 @@ const HomeLogo = styled.div`
 `;
 
 const VisitorLogo = styled.div`
+  grid-area: visitorHelmet;
   width: 128px;
   height: 110px;
   border-radius: 5px;
-  background-size: cover;
+  background-size: cover;  
   background-image: url("/static/images/${props => props.team}-right.png");
 `;
 
 const StyledCard = styled.div`
-  display: flex;
-  /* grid-template-areas:
-    "logo name name name rank"
-    "logo position position action rank"; */
+  display: grid;
+  grid-template-areas:
+    "homeHelmet line line visitorHelmet"
+    "homeHelmet total total visitorHelmet";
   justify-content: space-between;
   align-items: flex-start;
   border-radius: 5px;
   box-shadow: 0 0 10px gray;
   padding: 13px 8px;
   margin: 5px;
-  width: 450px;
+  width: 550px;
   height: 100px;
   @media (max-width: ${size.tablet}) {
-    /* grid-template-areas:
-      "rank logo"
-      "name name"
-      "position position"
-      "action action"; */
-    justify-content: space-between;
-    width: 250px;
-    height: 250px;
+    display: grid;
+    grid-template-areas:
+      "homeHelmet visitorHelmet"
+      "line line"
+      "total total";
+    width: 320px;
+    height: 350px;
+    font-size: 18px;
+    align-items: center;
   }
+`;
+
+// const Content = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+// `;
+
+const Line = styled.span`
+  grid-area: line;
+  width: 100%;
+  white-space: nowrap;
+`;
+
+const Total = styled.span`
+  grid-area: total;
+  width: 100%;
 `;
 
 const Games = () => {
@@ -83,9 +106,12 @@ const Games = () => {
                 team={x.gameSchedule.homeTeamAbbr}
                 src={x.gameSchedule.homeTeamLogo}
               />
-              {`${x.gameSchedule.homeNickname}${spread()} vs ${
+
+              <Line>{`${x.gameSchedule.homeNickname}${spread()} vs ${
                 x.gameSchedule.visitorNickname
-              }`}
+              }`}</Line>
+              {x.odds && <Total>Over/Under {x.odds?.total}</Total>}
+
               <VisitorLogo
                 team={x.gameSchedule.visitorTeamAbbr}
                 src={x.gameSchedule.visitorTeamLogo}
