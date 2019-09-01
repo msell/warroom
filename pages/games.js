@@ -74,7 +74,7 @@ const Total = styled.span`
   width: 100%;
 `;
 
-const Games = () => {
+const Games = props => {
   const { loading, error, data, fetchMore, networkStatus } = useQuery(
     GAME_ODDS_QUERY,
     {
@@ -87,7 +87,7 @@ const Games = () => {
 
   return (
     <div>
-      <h1 style={{ textAlign: "center" }}>Games</h1>
+      <h1 style={{ textAlign: "center" }}>Games {props.foo}</h1>
       <hr />
       <Container>
         {data.scores.map(x => {
@@ -124,4 +124,9 @@ const Games = () => {
   );
 };
 
+Games.getInitialProps = () => {
+  return {
+    foo: "bar"
+  };
+};
 export default Games;
