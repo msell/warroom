@@ -35,6 +35,9 @@ const StyledCard = styled.div`
   grid-template-areas:
     "homeHelmet line line visitorHelmet"
     "homeHelmet total total visitorHelmet";
+  &:hover {
+    border: solid 3px #222;
+  }
   justify-content: space-between;
   align-items: flex-start;
   border-radius: 5px;
@@ -55,13 +58,6 @@ const StyledCard = styled.div`
     align-items: center;
   }
 `;
-
-// const Content = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-// `;
 
 const Line = styled.span`
   grid-area: line;
@@ -101,7 +97,7 @@ const Games = props => {
           };
 
           return (
-            <StyledCard key={x.gameSchedule.gameId}>
+            <StyledCard tabIndex={0} key={x.gameSchedule.gameId}>
               <HomeLogo
                 team={x.gameSchedule.homeTeamAbbr}
                 src={x.gameSchedule.homeTeamLogo}
