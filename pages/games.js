@@ -37,7 +37,7 @@ const StyledCard = styled.div`
     "homeHelmet line line visitorHelmet"
     "homeHelmet total total visitorHelmet";
   &:hover {
-    border: solid 3px #222;
+    background-color: rgba(34, 2, 0, 0.1);
   }
   justify-content: space-between;
   align-items: flex-start;
@@ -75,10 +75,10 @@ const Games = props => {
   const [modalActive, setModalActive] = React.useState(false);
   const [selectedGame, setSelectedGame] = React.useState(null);
 
-  const toggleModal = (game) => {
+  const toggleModal = game => {
     setSelectedGame(game);
     setModalActive(!modalActive);
-  }
+  };
 
   const { loading, error, data, fetchMore, networkStatus } = useQuery(
     GAME_ODDS_QUERY,
@@ -90,7 +90,7 @@ const Games = props => {
   if (error) return <ErrorMessage message="Error loading games." />;
   if (loading) return <div>Loading...</div>;
 
-  const spread = (x) => {
+  const spread = x => {
     if (!x.odds) return ``;
 
     if (x.odds?.homeSpread == 0) return ` (even)`;
@@ -104,8 +104,7 @@ const Games = props => {
       <h1 style={{ textAlign: "center" }}>Games</h1>
       <hr />
       <Container>
-        {data.scores.map(x => {          
-
+        {data.scores.map(x => {
           return (
             <StyledCard
               onClick={() => toggleModal(x)}
@@ -133,14 +132,18 @@ const Games = props => {
       <Modal open={modalActive} onClose={toggleModal} width={"300px"}>
         <div>{`${selectedGame?.gameSchedule?.visitorTeamAbbr} at ${selectedGame?.gameSchedule?.homeTeamAbbr}`}</div>
         <div>{selectedGame?.gameSchedule?.gameDate}</div>
-        {selectedGame?.odds && <div>
-          <Line>{`${selectedGame?.gameSchedule?.homeNickname}${spread(selectedGame)} vs ${
-                selectedGame?.gameSchedule?.visitorNickname
-              }`}</Line>
-          <div><Total>Over/Under {selectedGame.odds?.total}</Total></div>
-          <div>{`${selectedGame?.gameSchedule?.homeTeamAbbr} money line: ${selectedGame.odds?.homeMoneyLine}`}</div>
-          <div>{`${selectedGame?.gameSchedule?.visitorTeamAbbr} money line: ${selectedGame.odds?.visitorMoneyLine}`}</div>
-          </div>}
+        {selectedGame?.odds && (
+          <div>
+            <Line>{`${selectedGame?.gameSchedule?.homeNickname}${spread(
+              selectedGame
+            )} vs ${selectedGame?.gameSchedule?.visitorNickname}`}</Line>
+            <div>
+              <Total>Over/Under {selectedGame.odds?.total}</Total>
+            </div>
+            <div>{`${selectedGame?.gameSchedule?.homeTeamAbbr} money line: ${selectedGame.odds?.homeMoneyLine}`}</div>
+            <div>{`${selectedGame?.gameSchedule?.visitorTeamAbbr} money line: ${selectedGame.odds?.visitorMoneyLine}`}</div>
+          </div>
+        )}
       </Modal>
     </div>
   );
