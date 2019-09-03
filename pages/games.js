@@ -4,6 +4,7 @@ import { GAME_ODDS_QUERY } from "queries";
 import styled from "@emotion/styled";
 import { size } from "config/breakpoints";
 import { Modal, ErrorMessage } from "components";
+import GridLoader from "react-spinners/GridLoader";
 
 const Container = styled.div`
   display: flex;
@@ -90,7 +91,20 @@ const Games = props => {
     }
   );
   if (error) return <ErrorMessage message={error.message} />;
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div
+        style={{
+          display: "flex",
+          width: "100vh",
+          height: "100vh",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <GridLoader sizeUnit={"px"} size={60} color="#F012BE" />
+      </div>
+    );
 
   const spread = x => {
     if (!x.odds) return ``;
@@ -114,9 +128,9 @@ const Games = props => {
       <select
         value={selectedWeek}
         onChange={e => setSelectedWeek(parseInt(e.target.value))}
-        style={{ width: "150px" }}
+        style={{ width: "150px", fontSize: "20px" }}
       >
-        {Array.from(new Array(16), (g, i) => (
+        {Array.from(new Array(17), (g, i) => (
           <option key={i} value={i + 1}>{`Week ${i + 1}`}</option>
         ))}
       </select>
