@@ -69,6 +69,7 @@ const Button = styled.button`
 
 const StyledCard = styled.div`
   display: grid;
+  background-color: #fff;
   grid-template-areas:
     "logo name name name rank"
     "logo position position action rank";

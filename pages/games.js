@@ -34,11 +34,12 @@ const VisitorLogo = styled.div`
 
 const StyledCard = styled.div`
   display: grid;
+  background-color: #fff;
   grid-template-areas:
     "homeHelmet line line visitorHelmet"
     "homeHelmet total total visitorHelmet";
   &:hover {
-    background-color: rgba(34, 2, 0, 0.1);
+    background-color: rgba(213, 198, 214, 0.8);
   }
   justify-content: space-between;
   align-items: flex-start;

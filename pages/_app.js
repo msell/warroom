@@ -23,6 +23,9 @@ class MyApp extends App {
               font-family: "Noto Sans TC", sans-serif;
               color: #222;
             }
+            body {
+              background-color: #8d9ec6;
+            }
           `}
         />
         <Component {...pageProps} />
