@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export const GAME_ODDS_QUERY = gql`
-  {
-    scores(week: 1, year: 2019) {
+  query games($week: Int!) {
+    scores(week: $week, year: 2019) {
       gameSchedule {
         homeNickname
         visitorNickname

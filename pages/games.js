@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { GAME_ODDS_QUERY } from "queries";
 import styled from "@emotion/styled";
 import { size } from "config/breakpoints";
-import { Modal } from "components";
+import { Modal, ErrorMessage } from "components";
 
 const Container = styled.div`
   display: flex;
@@ -74,7 +74,7 @@ const Total = styled.span`
 const Games = props => {
   const [modalActive, setModalActive] = React.useState(false);
   const [selectedGame, setSelectedGame] = React.useState(null);
-
+  const [selectedWeek, setSelectedWeek] = React.useState(1);
   const toggleModal = game => {
     setSelectedGame(game);
     setModalActive(!modalActive);
@@ -83,11 +83,13 @@ const Games = props => {
   const { loading, error, data, fetchMore, networkStatus } = useQuery(
     GAME_ODDS_QUERY,
     {
-      variables: undefined, // will have some soon
+      variables: {
+        week: selectedWeek
+      },
       notifyOnNetworkStatusChange: true
     }
   );
-  if (error) return <ErrorMessage message="Error loading games." />;
+  if (error) return <ErrorMessage message={error.message} />;
   if (loading) return <div>Loading...</div>;
 
   const spread = x => {
@@ -100,8 +102,24 @@ const Games = props => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center"
+      }}
+    >
       <h1 style={{ textAlign: "center" }}>Games</h1>
+      <select
+        value={selectedWeek}
+        onChange={e => setSelectedWeek(parseInt(e.target.value))}
+        style={{ width: "150px" }}
+      >
+        {Array.from(new Array(16), (g, i) => (
+          <option key={i} value={i + 1}>{`Week ${i + 1}`}</option>
+        ))}
+      </select>
       <hr />
       <Container>
         {data.scores.map(x => {
